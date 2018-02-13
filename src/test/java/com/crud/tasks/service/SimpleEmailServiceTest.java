@@ -26,15 +26,19 @@ public class SimpleEmailServiceTest {
     @Test
     public void shouldSendEmail(){
         //Given
-        Mail mail=new Mail("test@test.com", "Test", "Test message");
-
+//        Mail mail=new Mail("test@test.com", "Test", "Test message", "test2@test.com");
+        Mail mail=new Mail("qr359789@gmail.com", "Test", "Test message");
         SimpleMailMessage mailMessage=new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMessage());
 
         //When
-        simpleEmailService.send(mail);
+        try{
+        simpleEmailService.send(mail);}
+        catch(Exception e){
+            System.out.println(e);
+        }
 
         //Then
         verify(javaMailSender, times(1)).send(mailMessage);

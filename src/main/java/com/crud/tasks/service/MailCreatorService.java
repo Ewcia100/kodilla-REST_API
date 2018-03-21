@@ -23,12 +23,15 @@ public class MailCreatorService {
     @Qualifier("templateEngine")
     private TemplateEngine templateEngine;
 
-    public String buildTrelloCardEmail(String message) {
+
+    public static List<String> functionality(){
         List<String> functionality=new ArrayList<>();
         functionality.add("You can manage your tasks");
         functionality.add("Provides connection with Trello Account");
         functionality.add("Application allows sending tasks to Trello");
-
+        return functionality;
+    }
+    public String buildTrelloCardEmail(String message) {
         Context context = new Context();
         context.setVariable("message", message);
         context.setVariable("preview_message", "Message about new task");
@@ -42,9 +45,26 @@ public class MailCreatorService {
         context.setVariable("company_address", companyConfig.getCompanyAddress());
         context.setVariable("company_mail", companyConfig.getCompanyEmail());
         context.setVariable("is_friend", false);
-        context.setVariable("application_functionality", functionality);
+        context.setVariable("application_functionality", MailCreatorService.functionality());
         return templateEngine.process("mail/created-trello-card-mail", context);
     }
+    public String buildScheduledEmail(String message) {
 
+        Context context = new Context();
+        context.setVariable("message", message);
+        context.setVariable("preview_message", "Message about new task");
+        context.setVariable("tasks_url", "http://localhost:8888/tasks_frontend/");
+        context.setVariable("button", "Visit website");
+        context.setVariable("admin_config", adminConfig);
+        context.setVariable("show_button", true);
+        context.setVariable("owner_name", companyConfig.getOwnerName());
+        context.setVariable("owner_surname", companyConfig.getOwnerSurname());
+        context.setVariable("company_name", companyConfig.getCompanyName());
+        context.setVariable("company_address", companyConfig.getCompanyAddress());
+        context.setVariable("company_mail", companyConfig.getCompanyEmail());
+        context.setVariable("is_friend", false);
+        context.setVariable("application_functionality", MailCreatorService.functionality());
+        return templateEngine.process("mail/created-trello-card-mail", context);
+    }
 }
 

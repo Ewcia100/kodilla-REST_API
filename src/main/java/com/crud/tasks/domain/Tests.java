@@ -1,7 +1,9 @@
 package com.crud.tasks.domain;
+
 public class Tests {
     private Long id;
     private String message;
+
     public Long getId() {
         return id;
     }
@@ -17,4 +19,6 @@ public class Tests {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public void newTestingMethod(){}
 }
